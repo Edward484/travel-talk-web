@@ -11,7 +11,9 @@ function App() {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <Router />
+          <Layout>
+            <Router />
+          </Layout>
         </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>
