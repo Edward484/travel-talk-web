@@ -2,7 +2,7 @@ import axios from 'axios';
 import { QueryClient } from 'react-query';
 
 export const axiosClient = axios.create({
-  baseURL: 'http://localhost:7179',
+  baseURL: 'http://localhost:5179/api',
 });
 
 const getAuthHeader = (token?: string) =>
