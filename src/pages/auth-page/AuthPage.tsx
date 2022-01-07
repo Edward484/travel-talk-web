@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, Snackbar, Typography } from '@mui/material';
 import colors from '../../lib/theme/colors';
 import LoginForm from '../../components/auth/login-form/LoginForm';
+import RegisterForm from '../../components/auth/register-form/RegisterForm';
 
 const AuthPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [showSuccessRegisterToast, setShowRegisterToast] = useState(false);
   return (
     <Box
       width="100%"
@@ -29,8 +31,22 @@ const AuthPage = () => {
         </Box>
         {isSignIn ? (
           <LoginForm toggleForm={() => setIsSignIn(x => !x)} />
-        ) : null}
+        ) : (
+          <RegisterForm
+            toggleForm={() => setIsSignIn(x => !x)}
+            showSuccessToast={() => setShowRegisterToast(true)}
+          />
+        )}
       </Box>
+      <Snackbar
+        open={showSuccessRegisterToast}
+        onClose={() => setShowRegisterToast(false)}
+        autoHideDuration={2000}
+      >
+        <Alert onClose={() => setShowRegisterToast(false)} severity="success">
+          Register successful
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

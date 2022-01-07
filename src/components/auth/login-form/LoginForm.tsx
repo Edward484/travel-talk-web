@@ -4,6 +4,9 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { loginApiReq } from '../../../api/requests/auth/auth-api-requests';
 import { isLoginError, LoginErrorType } from '../../../api/types/auth';
 import { EMAIL_REGEX } from '../../../global/constants/utils';
+import { useRecoilState } from 'recoil';
+import { authTokenAtom } from '../../../global/atoms/AuthAtoms';
+import { useNavigate } from 'react-router';
 
 interface LoginFormProps {
   /**
@@ -20,6 +23,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
   const [passwordError, setPasswordError] = useState<string | undefined>(
     undefined,
   );
+
+  const [_, setAuthToken] = useRecoilState(authTokenAtom);
+  const navigate = useNavigate();
 
   const validatePassword = () => {
     let error = undefined;
@@ -45,6 +51,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
     return isValid;
   };
 
+  // TODO: Extract in hook / service
   const signIn = async () => {
     const isPasswordValid = validatePassword();
     const isEmailValid = validateEmail();
@@ -75,8 +82,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           }
         }
       } else {
+        setAuthToken({
+          token: res.accessToken,
+          refresh: res.refreshToke,
+        });
         //TODO: Fetch the current user
-        // TODO: Redirect
+
+        navigate('/');
       }
     }
   };

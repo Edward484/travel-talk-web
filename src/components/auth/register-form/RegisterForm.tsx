@@ -1,33 +1,51 @@
 import React, { useState } from 'react';
 import colors from '../../../lib/theme/colors';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { loginApiReq } from '../../../api/requests/auth/auth-api-requests';
-import { isLoginError, LoginErrorType } from '../../../api/types/auth';
-import { EMAIL_REGEX } from '../../../global/constants/utils';
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { registerApiReq } from '../../../api/requests/auth/auth-api-requests';
+import { isRegisterError } from '../../../api/types/auth';
 
-interface LoginFormProps {
+interface RegisterFormProps {
   /**
    * Toggle between login and register form
    */
   toggleForm: () => void;
+  showSuccessToast: () => void;
 }
 
-const RegisterForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  toggleForm,
+  showSuccessToast,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const register = async () => {
-    if (isPasswordValid && isEmailValid) {
-      //  TODO: Register
-      //TODO: Handle errors
+    try {
+      await registerApiReq({ email, password, username });
+      toggleForm();
+      showSuccessToast();
+    } catch (e) {
+      if (isRegisterError(e)) {
+        if (typeof e === 'string') {
+          // User already exists
+          setErrors([e]);
+        } else {
+          setErrors(e.map(error => error.description));
+        }
+      }
     }
   };
 
-  //TODO: Add username input
-  //TODO: Add error msg mapping
   return (
     <Box
       display="flex"
@@ -36,6 +54,17 @@ const RegisterForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
       bgcolor={colors.paper}
       width="100%"
     >
+      {errors.length > 0 && (
+        <Box ml="2.5rem" mr="0.5rem" width="50%">
+          <List sx={{ listStyle: 'disc', color: colors.error }}>
+            {errors.map(e => (
+              <ListItem sx={{ px: 0, display: 'list-item' }}>
+                <Typography color={colors.error}>{e}</Typography>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      )}
       <Box marginBottom="0.5rem" width="50%">
         <TextField
           style={{ width: '100%' }}
@@ -43,8 +72,17 @@ const RegisterForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           variant="standard"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          error={emailError !== undefined}
-          helperText={emailError}
+          error={errors.length > 0}
+        />
+      </Box>
+      <Box marginBottom="0.5rem" width="50%">
+        <TextField
+          style={{ width: '100%' }}
+          label="Username"
+          variant="standard"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          error={errors.length > 0}
         />
       </Box>
       <Box marginBottom="1.5rem" width="50%">
@@ -55,8 +93,7 @@ const RegisterForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          error={passwordError !== undefined}
-          helperText={passwordError}
+          error={errors.length > 0}
         />
       </Box>
       <Box
@@ -65,14 +102,14 @@ const RegisterForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
         alignItems="center"
         width="40%"
       >
-        <Button variant="contained" onClick={signIn}>
+        <Button variant="contained" onClick={register}>
           <Typography variant="h5" fontSize="1rem">
-            Sign In
+            Sign Up
           </Typography>
         </Button>
         <Button variant="text" onClick={toggleForm}>
           <Typography variant="h5" fontSize="1rem">
-            Sign Up
+            Sign Ip
           </Typography>
         </Button>
       </Box>

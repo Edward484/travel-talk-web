@@ -6,6 +6,13 @@ export type RegisterBody = {
 
 export type RegisterError = string | { code: string; description: string }[];
 
+export function isRegisterError(e: any): e is RegisterError {
+  return (
+    typeof e === 'string' ||
+    (Array.isArray(e) && e.length > 0 && e[0].code !== undefined)
+  );
+}
+
 export type LoginBody = {
   email: string;
   password: string;

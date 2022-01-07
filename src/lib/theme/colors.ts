@@ -8,6 +8,7 @@ const colors = {
   text: '#282828',
   textInverted: '#ffffff',
   textDisabled: '#868282',
+  error: '#f44336',
 };
 
 export default colors;
