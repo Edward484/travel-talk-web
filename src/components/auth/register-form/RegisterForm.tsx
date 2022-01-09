@@ -37,7 +37,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     } catch (e) {
       if (isRegisterError(e)) {
         if (typeof e === 'string') {
-          // User already exists
           setErrors([e]);
         } else {
           setErrors(e.map(error => error.description));

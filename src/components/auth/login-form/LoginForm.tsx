@@ -87,6 +87,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForm }) => {
           refresh: res.refreshToke,
         });
         //TODO: Fetch the current user
+        // TODO: Set cookie
 
         navigate('/');
       }

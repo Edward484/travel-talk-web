@@ -23,10 +23,11 @@ export async function loginApiReq(
   loginData: LoginBody,
 ): Promise<LoginResponse | LoginError> {
   try {
-    return await postRequest<LoginResponse, LoginBody>(
+    const axiosRes = await postRequest<LoginResponse, LoginBody>(
       '/Auth/login',
       loginData,
     );
+    return axiosRes.data;
   } catch (e) {
     if (axios.isAxiosError(e) && e.response) {
       switch (e.response.status) {

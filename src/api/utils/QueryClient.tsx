@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { QueryClient } from 'react-query';
 
 export const axiosClient = axios.create({
@@ -21,7 +21,7 @@ export async function postRequest<TResponse, TBody>(
   body: TBody,
   token?: string,
 ) {
-  return axiosClient.post<TBody, TResponse>(endpoint, body, {
+  return axiosClient.post<TBody, AxiosResponse<TResponse>>(endpoint, body, {
     headers: getAuthHeader(),
   });
 }
@@ -31,7 +31,7 @@ export async function putRequest<TResponse, TBody>(
   body: TBody,
   token?: string,
 ) {
-  return axiosClient.put<TBody, TResponse>(endpoint, body, {
+  return axiosClient.put<TBody, AxiosResponse<TResponse>>(endpoint, body, {
     headers: getAuthHeader(),
   });
 }
@@ -41,7 +41,7 @@ export async function patchRequest<TResponse, TBody>(
   body: TBody,
   token?: string,
 ) {
-  return axiosClient.patch<TBody, TResponse>(endpoint, body, {
+  return axiosClient.patch<TBody, AxiosResponse<TResponse>>(endpoint, body, {
     headers: getAuthHeader(),
   });
 }
@@ -50,7 +50,7 @@ export async function deleteRequest<TResponse>(
   endpoint: string,
   token?: string,
 ) {
-  return axiosClient.delete<TResponse>(endpoint, {
+  return axiosClient.delete<AxiosResponse<TResponse>>(endpoint, {
     headers: getAuthHeader(),
   });
 }

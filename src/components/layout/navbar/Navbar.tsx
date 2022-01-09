@@ -5,17 +5,21 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import colors from '../../../lib/theme/colors';
 import Logo from '../logo/Logo';
+import useIsLoggedIn from '../../../lib/hooks/useIsLoggedIn';
+import { useRecoilValue } from 'recoil';
+import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
 
 const Navbar = () => {
   const [categories, setCategories] = useState<CategoryApiResponse[]>([]);
   const navigate = useNavigate();
+  const isLoggedIn = useIsLoggedIn();
+  const profile = useRecoilValue(currentUserAtom);
 
   //Get all the categories on page load
   useEffect(() => {
     getAllCategories().then(setCategories);
   }, []);
 
-  //TODO: Animate entry
   const renderCategories = () =>
     categories.map(category => (
       <Button variant="text" key={category.categoryId}>
@@ -41,9 +45,18 @@ const Navbar = () => {
         {renderCategories()}
       </Box>
       <Box marginLeft="auto">
-        <Button onClick={goToAuthPage} variant="text">
-          <Typography variant="button">Sign In</Typography>
-        </Button>
+        {!isLoggedIn && (
+          <Button onClick={goToAuthPage} variant="text">
+            <Typography variant="button">Sign In</Typography>
+          </Button>
+        )}
+        {isLoggedIn && (
+          <Button onClick={() => navigate('/settings/profile')} variant="text">
+            <Typography variant="button">
+              {profile ? `@${profile.username}` : 'Settings'}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </Box>
   );

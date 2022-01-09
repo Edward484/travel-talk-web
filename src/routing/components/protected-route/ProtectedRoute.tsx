@@ -1,18 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import {
-  IndexRouteProps,
-  LayoutRouteProps,
-  PathRouteProps,
-  Route,
-  useNavigate,
-  useRoutes,
-} from 'react-router';
+import { Navigate } from 'react-router';
 
-type ProtectedRouteProps = (
-  | PathRouteProps
-  | LayoutRouteProps
-  | IndexRouteProps
-) & {
+interface ProtectedRouteProps {
   validation: () => boolean;
   /**
    * An element to show before the validation function is run the first time
@@ -22,7 +11,7 @@ type ProtectedRouteProps = (
    * Where to redirect the user if they are not allowed to see this route
    */
   fallbackRoute: string;
-};
+}
 
 type CanAccessState = 'loading' | 'allowed' | 'forbidden';
 
@@ -30,13 +19,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   validation,
   loadingElement,
   fallbackRoute,
-  ...props
+  children,
 }) => {
   const [canAccess, setCanAccess] = useState<CanAccessState>(
     loadingElement ? 'loading' : validation() ? 'allowed' : 'forbidden',
   );
-
-  const navigate = useNavigate();
 
   //Recheck the validation of the route
   useEffect(() => {
@@ -45,13 +32,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   switch (canAccess) {
     case 'loading':
-      return <Route {...props} element={loadingElement} />;
+      return loadingElement ?? null;
     case 'forbidden':
       // The user is not allowed to see this route, navigate him away and render  a blank route while the navigation takes place
-      navigate(fallbackRoute);
-      return <Route {...props} element={undefined} />;
+      return <Navigate to={fallbackRoute} />;
     case 'allowed':
-      return <Route {...props} />;
+      return <>{children ?? null}</>;
   }
 };
 
