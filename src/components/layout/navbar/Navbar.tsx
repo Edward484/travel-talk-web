@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router';
 import colors from '../../../lib/theme/colors';
 import Logo from '../logo/Logo';
 import useIsLoggedIn from '../../../lib/hooks/auth/useIsLoggedIn';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
 import { Link } from 'react-router-dom';
+import { allCategoriesAtom } from '../../../global/atoms/CategoryAtoms';
 
 const Navbar = () => {
-  const [categories, setCategories] = useState<CategoryApiResponse[]>([]);
+  const [categories, setCategories] = useRecoilState(allCategoriesAtom);
   const navigate = useNavigate();
   const isLoggedIn = useIsLoggedIn();
   const profile = useRecoilValue(currentUserAtom);

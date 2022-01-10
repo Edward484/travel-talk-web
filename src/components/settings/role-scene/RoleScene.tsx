@@ -1,10 +1,12 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -45,30 +47,43 @@ const RoleScene: React.FC = () => {
     CategoryApiResponse | undefined
   >(undefined);
 
-  const giveRole = () => {
+  const [showToast, setShowToast] = useState(false);
+
+  const giveRole = async () => {
     if (selectedRole && apiToken) {
-      giveUserRole(
+      await giveUserRole(
         selectedRole,
         username,
         apiToken.token,
         selectedCategory?.categoryId,
       );
+      setShowToast(true);
     }
   };
 
-  const takeRole = () => {
+  const takeRole = async () => {
     if (selectedRole && apiToken) {
-      takeUserRole(
+      await takeUserRole(
         selectedRole,
         username,
         apiToken.token,
         selectedCategory?.categoryId,
       );
+      setShowToast(true);
     }
   };
 
   return (
     <Box>
+      <Snackbar
+        open={showToast}
+        onClose={() => setShowToast(false)}
+        autoHideDuration={2000}
+      >
+        <Alert onClose={() => setShowToast(false)} severity="success">
+          Role Edited
+        </Alert>
+      </Snackbar>
       <Box marginBottom="1rem">
         <Typography variant="h3" fontSize="1.25rem" fontWeight="700">
           Edit Roles
