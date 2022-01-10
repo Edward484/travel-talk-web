@@ -5,7 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import colors from '../../../lib/theme/colors';
 import Logo from '../logo/Logo';
-import useIsLoggedIn from '../../../lib/hooks/useIsLoggedIn';
+import useIsLoggedIn from '../../../lib/hooks/auth/useIsLoggedIn';
 import { useRecoilValue } from 'recoil';
 import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
 

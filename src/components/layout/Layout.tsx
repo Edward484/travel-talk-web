@@ -5,7 +5,7 @@ import Navbar from './navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 
 const Layout: React.FC = () => {
-  //TODO: Check cookie for auth token
+  //TODO: Check local storage for auth token
   return (
     <Box
       width="100vw"
