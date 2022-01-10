@@ -7,17 +7,23 @@ import { Roles } from '../../models/user';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import style from './SettingsPage.module.scss';
+import useLogin from '../../lib/hooks/auth/useLogin';
 
 const SettingsPage = () => {
   const profile = useRecoilValue(currentUserAtom);
   const navigate = useNavigate();
+  const { signOut } = useLogin();
 
   // @param icon is a material icon string
-  const renderMenuButton = (label: string, icon: string, subRoute: string) => (
+  const renderMenuButton = (
+    label: string,
+    icon: string,
+    onClick: () => void,
+  ) => (
     <Box
       p="0.5rem"
       sx={{ ':hover': { bgcolor: colors.secondary, cursor: 'pointer' } }}
-      onClick={() => navigate(subRoute)}
+      onClick={onClick}
       display="flex"
       alignItems="center"
       className={style.sideMenuItem}
@@ -41,13 +47,18 @@ const SettingsPage = () => {
         marginRight="3rem"
         height="fit-content"
       >
-        {renderMenuButton('Edit Profile', 'edit', 'profile')}
+        {renderMenuButton('Edit Profile', 'edit', () => navigate('profile'))}
         {profile?.roles.find(role => role === Roles.Admin)
-          ? renderMenuButton('Edit Roles', 'admin_panel_settings', 'roles')
+          ? renderMenuButton('Edit Roles', 'admin_panel_settings', () =>
+              navigate('roles'),
+            )
           : null}
         {profile?.roles.find(role => role === Roles.Admin)
-          ? renderMenuButton('Add categories', 'add', 'categories')
+          ? renderMenuButton('Add categories', 'add', () =>
+              navigate('categories'),
+            )
           : null}
+        {renderMenuButton('Logout', 'logout', signOut)}
       </Box>
       <Box>
         <Outlet />
