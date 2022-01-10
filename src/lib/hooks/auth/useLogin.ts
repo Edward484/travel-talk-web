@@ -9,6 +9,10 @@ import { loginApiReq } from '../../../api/requests/auth/auth-api-requests';
 import { isLoginError, LoginErrorType } from '../../../api/types/auth';
 import { useNavigate } from 'react-router';
 import { getCurrentUser } from '../../../api/requests/profile/profile-api-requests';
+import {
+  LOCAL_STORAGE_REFRESH_KEY,
+  LOCAL_STORAGE_TOKEN_KEY,
+} from '../../../global/constants/auth';
 
 let currentRefreshTimeout: NodeJS.Timeout | null = null;
 
@@ -50,6 +54,17 @@ export default function useLogin() {
     return isValid;
   };
 
+  const fetchCurrentUser = async (token: string) => {
+    const profile = await getCurrentUser(token);
+    setCurrentUser(profile);
+
+    // Periodically refresh the profile to check for notifications
+    currentRefreshTimeout = setInterval(async () => {
+      const profile = await getCurrentUser(token);
+      setCurrentUser(profile);
+    }, 1000 * 60);
+  };
+
   const signIn = async () => {
     const isPasswordValid = validatePassword();
     const isEmailValid = validateEmail();
@@ -85,17 +100,10 @@ export default function useLogin() {
           refresh: res.refreshToke,
         });
 
-        localStorage.setItem('token', res.accessToken);
-        localStorage.setItem('refresh', res.refreshToke);
+        localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, res.accessToken);
+        localStorage.setItem(LOCAL_STORAGE_REFRESH_KEY, res.refreshToke);
 
-        const profile = await getCurrentUser(res.accessToken);
-        setCurrentUser(profile);
-
-        // Periodically refresh the profile to check for notifications
-        currentRefreshTimeout = setInterval(async () => {
-          const profile = await getCurrentUser(res.accessToken);
-          setCurrentUser(profile);
-        }, 1000 * 60);
+        await fetchCurrentUser(res.accessToken);
 
         navigate('/');
       }
@@ -120,5 +128,6 @@ export default function useLogin() {
     passwordError,
     signIn,
     signOut,
+    fetchCurrentUser,
   };
 }

@@ -7,6 +7,7 @@ import ProtectedRoute from './components/protected-route/ProtectedRoute';
 import useIsLoggedIn from '../lib/hooks/auth/useIsLoggedIn';
 import SettingsPage from '../pages/settings-page/SettingsPage';
 import ProfileScene from '../components/settings/profile-scene/ProfileScene';
+import RolesScene from '../components/settings/role-scene/RoleScene';
 
 const Router = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -24,6 +25,7 @@ const Router = () => {
             }
           >
             <Route path="profile" element={<ProfileScene />} />
+            <Route path="roles" element={<RolesScene />} />
           </Route>
         </Route>
       </Routes>

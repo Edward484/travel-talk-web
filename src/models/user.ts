@@ -1,10 +1,10 @@
 import { Notification } from './notification';
 
 export enum Roles {
-  User = 1,
-  CategoryMod,
+  Admin = 1,
   Mod,
-  Admin,
+  User,
+  CategoryMod,
 }
 
 export type User = {

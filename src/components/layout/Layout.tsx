@@ -3,9 +3,10 @@ import { Box } from '@mui/material';
 import colors from '../../lib/theme/colors';
 import Navbar from './navbar/Navbar';
 import { Outlet } from 'react-router-dom';
+import useRememberMe from '../../lib/hooks/auth/useRememberMe';
 
 const Layout: React.FC = () => {
-  //TODO: Check local storage for auth token
+  useRememberMe();
   return (
     <Box
       width="100vw"

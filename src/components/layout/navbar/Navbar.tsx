@@ -8,6 +8,7 @@ import Logo from '../logo/Logo';
 import useIsLoggedIn from '../../../lib/hooks/auth/useIsLoggedIn';
 import { useRecoilValue } from 'recoil';
 import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [categories, setCategories] = useState<CategoryApiResponse[]>([]);
@@ -40,7 +41,9 @@ const Navbar = () => {
       bgcolor={colors.paper}
       alignItems="center"
     >
-      <Logo />
+      <Link to={'/'}>
+        <Logo />
+      </Link>
       <Box display="flex" marginLeft="0.25rem">
         {renderCategories()}
       </Box>

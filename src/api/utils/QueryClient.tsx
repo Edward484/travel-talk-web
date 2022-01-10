@@ -46,12 +46,14 @@ export async function patchRequest<TResponse, TBody>(
   });
 }
 
-export async function deleteRequest<TResponse>(
+export async function deleteRequest<TResponse, TBody>(
   endpoint: string,
+  body: TBody,
   token?: string,
 ) {
   return axiosClient.delete<AxiosResponse<TResponse>>(endpoint, {
     headers: getAuthHeader(),
+    data: body,
   });
 }
 
