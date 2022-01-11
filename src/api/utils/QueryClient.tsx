@@ -22,7 +22,7 @@ export async function postRequest<TResponse, TBody>(
   token?: string,
 ) {
   return axiosClient.post<TBody, AxiosResponse<TResponse>>(endpoint, body, {
-    headers: getAuthHeader(),
+    headers: getAuthHeader(token),
   });
 }
 
@@ -32,7 +32,7 @@ export async function putRequest<TResponse, TBody>(
   token?: string,
 ) {
   return axiosClient.put<TBody, AxiosResponse<TResponse>>(endpoint, body, {
-    headers: getAuthHeader(),
+    headers: getAuthHeader(token),
   });
 }
 
@@ -42,7 +42,7 @@ export async function patchRequest<TResponse, TBody>(
   token?: string,
 ) {
   return axiosClient.patch<TBody, AxiosResponse<TResponse>>(endpoint, body, {
-    headers: getAuthHeader(),
+    headers: getAuthHeader(token),
   });
 }
 
@@ -52,7 +52,7 @@ export async function deleteRequest<TResponse, TBody>(
   token?: string,
 ) {
   return axiosClient.delete<AxiosResponse<TResponse>>(endpoint, {
-    headers: getAuthHeader(),
+    headers: getAuthHeader(token),
     data: body,
   });
 }
