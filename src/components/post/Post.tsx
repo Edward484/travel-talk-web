@@ -23,6 +23,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <img style={{ width: '200px' }} src={post.imageUrl} />
       </Box>
       {/*    TODO: Add upvote button*/}
+      {/*    TODO: Add report button*/}
     </Box>
   );
 };
