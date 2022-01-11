@@ -4,4 +4,5 @@ export type CategoryTopicApiResponse = {
   title: string;
   authorId: number;
   categoryId: number;
+  authorUsername?: string;
 };
