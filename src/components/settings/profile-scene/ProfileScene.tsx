@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {authTokenAtom, currentUserAtom} from '../../../global/atoms/AuthAtoms';
 import { Box, Button, TextField, Typography } from '@mui/material';
+import {changeUserName} from "../../../api/requests/profile/profile-api-requests";
 
 const ProfileScene: React.FC = () => {
+  const apiToken = useRecoilValue(authTokenAtom);
   const [profile, setProfile] = useRecoilState(currentUserAtom);
   const [username, setUsername] = useState('@' + profile?.username ?? '');
 
@@ -15,7 +17,7 @@ const ProfileScene: React.FC = () => {
     }
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (profile) {
       setProfile(currentVal => ({
         ...currentVal!!,
@@ -24,7 +26,10 @@ const ProfileScene: React.FC = () => {
       }));
     }
 
-    //TODO: Send the PATCH
+    if (apiToken) {
+      const res = await changeUserName(username.substring(1), apiToken.token)
+    }
+    //TODO: Check the PATCH
   };
 
   return (
