@@ -9,6 +9,7 @@ import SettingsPage from '../pages/settings-page/SettingsPage';
 import ProfileScene from '../components/settings/profile-scene/ProfileScene';
 import RolesScene from '../components/settings/role-scene/RoleScene';
 import CategoryScene from '../components/settings/category-scene/CategoryScene';
+import TestPage from "../pages/test-page/TestPage";
 
 const Router = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -29,6 +30,7 @@ const Router = () => {
             <Route path="roles" element={<RolesScene />} />
             <Route path="categories" element={<CategoryScene />} />
           </Route>
+          <Route path="" element={<TestPage/>}  />
         </Route>
       </Routes>
     </BrowserRouter>

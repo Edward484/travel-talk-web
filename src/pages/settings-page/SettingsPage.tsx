@@ -2,14 +2,18 @@ import React from 'react';
 import { Box, Icon, Typography } from '@mui/material';
 import colors from '../../lib/theme/colors';
 import { useRecoilValue } from 'recoil';
-import { currentUserAtom } from '../../global/atoms/AuthAtoms';
+import {authTokenAtom, currentUserAtom} from '../../global/atoms/AuthAtoms';
 import { Roles } from '../../models/user';
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import style from './SettingsPage.module.scss';
 import useLogin from '../../lib/hooks/auth/useLogin';
+import {getUserNotification} from "../../api/requests/notification/notification-api-request";
+import {patchRequest} from "../../api/utils/QueryClient";
+import { deletePost} from "../../api/requests/post/post-api-request";
 
 const SettingsPage = () => {
+  const apiToken = useRecoilValue(authTokenAtom); // test purpose
   const profile = useRecoilValue(currentUserAtom);
   const navigate = useNavigate();
   const { signOut } = useLogin();
@@ -58,6 +62,7 @@ const SettingsPage = () => {
               navigate('categories'),
             )
           : null}
+
         {renderMenuButton('Logout', 'logout', signOut)}
       </Box>
       <Box>
