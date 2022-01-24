@@ -12,7 +12,7 @@ export async function getCurrentUser(token: string) {
 
 export async function changeUserName(userName:string, token: string){
   try {
-    const res = await patchRequest<User, {NewUsername: string}>(
+    const res = await patchRequest(
         '/User/change',
         {NewUsername: userName},
         token,

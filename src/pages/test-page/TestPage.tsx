@@ -8,6 +8,8 @@ import style from '../settings-page/SettingsPage.module.scss';
 import useLogin from '../../lib/hooks/auth/useLogin';
 import {getUserNotification} from "../../api/requests/notification/notification-api-request";
 import { deletePost} from "../../api/requests/post/post-api-request";
+import {changeCategoryName, deleteCategoryById} from "../../api/requests/categories/categories-api-requests";
+import {createTopic} from "../../api/requests/topic/topic-api-request";
 
 const TestPage = () => {
     const apiToken = useRecoilValue(authTokenAtom); // test purpose
@@ -60,8 +62,25 @@ const TestPage = () => {
                     const res = await deletePost(3,apiToken.token);
                     console.log(res);
                 }
-
-        })}
+            })}
+            {renderTestButton('Delete first category ', 'Delete', async () => {
+                if(apiToken) {
+                    const res = await deleteCategoryById(1,apiToken.token);
+                    console.log(res);
+                }
+            })}
+            {renderTestButton('Change category name ', 'Delete', async () => {
+                if(apiToken) {
+                    const res = await changeCategoryName(1,'H',apiToken.token);
+                    console.log(res);
+                }
+            })}
+            {renderTestButton('Create topic', 'create', async () => {
+                if(apiToken) {
+                    const res = await createTopic('First','HaHa',1,apiToken.token);
+                    console.log(res);
+                }
+            })}
         </Box>
     </Box>
 );
