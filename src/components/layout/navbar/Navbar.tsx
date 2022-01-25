@@ -25,7 +25,9 @@ const Navbar = () => {
   const renderCategories = () =>
     categories.map(category => (
       <Button variant="text" key={category.categoryId}>
-        <Typography variant="h5">{category.name}</Typography>
+        <Link to={`/${category.categoryId}`}>
+          <Typography variant="h5">{category.name}</Typography>
+        </Link>
       </Button>
     ));
 

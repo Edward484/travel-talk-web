@@ -10,7 +10,7 @@ interface TopicProps {
 
 const Topic: React.FC<TopicProps> = ({ topic }) => {
   return (
-    <Link to={`/topic/${topic.topicId}`}>
+    <Link to={`/Topic/${topic.categoryId}/${topic.topicId}`}>
       <Box
         bgcolor={colors.paper}
         width="100%"

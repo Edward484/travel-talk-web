@@ -9,6 +9,18 @@ export async function getAllCategories(): Promise<CategoryApiResponse[]> {
     return [];
   }
 }
+
+export async function getCategoryById(categId:number, token:string){
+  try {
+    const res = await getRequest(
+        `/Category/${categId}`,
+        token);
+    return res.data;
+  } catch (e) {
+    return undefined;
+  }
+}
+
 export async function createCategory(name: string, token: string) {
   const res = await postRequest<CategoryApiResponse, { name: string }>(
     '/Category',

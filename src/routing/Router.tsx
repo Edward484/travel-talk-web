@@ -10,6 +10,8 @@ import ProfileScene from '../components/settings/profile-scene/ProfileScene';
 import RolesScene from '../components/settings/role-scene/RoleScene';
 import CategoryScene from '../components/settings/category-scene/CategoryScene';
 import TestPage from "../pages/test-page/TestPage";
+import ForumPage from "../pages/forum-page/ForumPage";
+import TopicPage from '../pages/topic-page/TopicPage';
 
 const Router = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -18,6 +20,8 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="auth" element={<AuthPage />} />
+          <Route path=":categoryId" element={<ForumPage/>} />
+          <Route path="/topic/:categoryId/:topicId" element={<TopicPage/>}/>
           <Route
             path="settings"
             element={
@@ -30,7 +34,7 @@ const Router = () => {
             <Route path="roles" element={<RolesScene />} />
             <Route path="categories" element={<CategoryScene />} />
           </Route>
-          <Route path="" element={<TestPage/>}  />
+          <Route path="" element={<ForumPage/>}  />
         </Route>
       </Routes>
     </BrowserRouter>
