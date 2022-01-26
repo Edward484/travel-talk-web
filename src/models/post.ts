@@ -1,14 +1,26 @@
 import { Topic } from './topic';
 
 export type Post = {
-  id: number;
-  author: {
-    username: string;
-    id: number;
-  };
-  createdAt: Date;
-  content: string;
-  topic: Topic;
-  imageUrl?: string;
-  upVotes: number;
+    postId: number;
+    AuthorName: string;
+    AuthorId: number;
+    createdAt: number;
+    content: string;
+    topic: Topic;
+    imageUrl?: string;
+    upVotes: number;
 };
+export type PostType = {
+    postId: number;
+    authorName: string;
+    authorId: number;
+    createdAt: Date;
+    content: string;
+    topicId:number
+    imageUrl?: string;
+    upVotes: number;
+};
+
+export type PostList = {
+    posts: PostType[]
+}

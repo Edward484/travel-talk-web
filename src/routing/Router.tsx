@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/" element={<Layout />}>
           <Route path="auth" element={<AuthPage />} />
           <Route path=":categoryId" element={<ForumPage/>} />
-          <Route path="/topic/:categoryId/:topicId" element={<TopicPage/>}/>
+          <Route path="/Topic/:categoryId/:topicId" element={<TopicPage/>}/>
           <Route
             path="settings"
             element={

@@ -9,11 +9,12 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
+    console.log(post.AuthorName)
   return (
     <Box paddingX="1rem" paddingY="0.5rem" bgcolor={colors.paper}>
       <Box marginBottom="0.25rem">
         <Typography variant="body2" color={colors.textDisabled}>
-          @{post.author.username} at {formatDate(post.createdAt)}
+          @{post.AuthorName} at {formatDate(new Date(post.createdAt))}
         </Typography>
       </Box>
       <Box marginBottom="0.75rem">

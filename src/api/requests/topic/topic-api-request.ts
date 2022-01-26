@@ -15,7 +15,7 @@ export async function getTopicById(id:number,token:string){
         `/Topic/${id}`,
         token
     );
-    return res.data;
+    return res;
 }
 
 export async function updateTopicDescription(id:number, token:string){

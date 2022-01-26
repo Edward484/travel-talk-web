@@ -16,7 +16,6 @@ const ForumPage = () =>{
     const renderTopics = () =>
         (data?.topics??[]).map(topic => (
                 <Topic topic={topic} key={topic.topicId}/>))
-
     return(
         <Box display="flex" marginLeft="0.25rem" justifyContent="center">
                 {renderTopics()}

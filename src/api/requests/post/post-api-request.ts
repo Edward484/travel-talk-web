@@ -39,7 +39,7 @@ export async function updatePostContent(postId: number, content:string, token: s
     }
 }
 
-export async function getPostsByTopicId(id:number, token: string){
+export async function getPostsByTopicId(id: number | undefined, token: string | undefined){
     try {
         const res = await getRequest(
             `/Post/${id}`,

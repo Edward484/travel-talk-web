@@ -89,13 +89,13 @@ const TestPage = () => {
             })}
             {renderTestButton('Get posts', 'get', async () => {
                 if(apiToken) {
-                    const res = await getPostsByTopicId(10,apiToken.token);
+                    const res = await getPostsByTopicId(10, apiToken.token);
                     console.log(res);
                 }
             })}
             {renderTestButton('Create post', 'create', async () => {
                 if(apiToken) {
-                    const res = await createPost(10,"dada","image",apiToken.token);
+                    const res = await createPost(14,"Adrian","Pascu",apiToken.token);
                     console.log(res);
                 }
             })}
