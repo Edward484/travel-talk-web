@@ -63,9 +63,9 @@ const TestPage = () => {
                 }
 
             })}
-            {renderTestButton('Delete first category ', 'Delete', async () => {
+            {renderTestButton('Delete category ', 'Delete', async () => {
                 if(apiToken) {
-                    const res = await deleteCategoryById(2,apiToken.token);
+                    const res = await deleteCategoryById(6,apiToken.token);
                     console.log(res);
                 }
             })}

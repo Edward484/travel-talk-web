@@ -15,5 +15,6 @@ const theme = createTheme({
     background: { default: colors.background, paper: colors.paper },
     text: { primary: colors.text, disabled: colors.textDisabled },
   },
+
 });
 export default theme;

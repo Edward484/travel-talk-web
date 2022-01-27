@@ -6,13 +6,13 @@ import Topic from "../../components/topic/Topic";
 import useQuery from "../../api/hooks/useQuery";
 import {Link, useParams} from "react-router-dom";
 import {CategoryApiResponse} from "../../api/types/categories";
-import {Box} from "@mui/material";
+import {Box, Grid} from "@mui/material";
 import {CategoryTopicApiResponse} from "../../api/types/topic";
 import {Topic as topicApiResponse} from "../../models/topic";
 import {PostList, PostType} from "../../models/post";
 import Post from "../../components/post/Post";
 import {getPostsByTopicId} from "../../api/requests/post/post-api-request";
-import TestPage from "../test-page/TestPage";
+import CreatePost from "../../components/post/CreatePost";
 
 
 
@@ -27,15 +27,24 @@ const TopicPage = () => {
     const renderPosts = () => {
         console.log("Posts:",data);
         return (data?.posts??[]).map( post =>
-            <Post post={post}/>
+            <Grid item xs={13} sm={10} md={7} xl={7}
+                  sx={{my:0.2}}>
+                <Post post={post} key={post.postId}/>
+            </Grid>
         )
     }
 
     return (
-        <Box display="flex" marginLeft="0.25rem" justifyContent="center">
+        <Grid
+            container={true}
+            justifyContent="center"
+            xs={20}
+            sm={15}
+            xl={14}
+            px={{xs:3, sm :10, xl: 10}}>
             {renderPosts()}
-            <TestPage/>
-        </Box>
+            <CreatePost/>
+        </Grid>
     )
 }
 

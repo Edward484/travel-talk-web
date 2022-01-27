@@ -20,6 +20,7 @@ const Navbar = () => {
   //Get all the categories on page load
   useEffect(() => {
     getAllCategories().then(setCategories);
+    console.log("Categ:",categories )
   }, []);
 
   const renderCategories = () =>

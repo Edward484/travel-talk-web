@@ -6,7 +6,8 @@ import Topic from "../../components/topic/Topic";
 import useQuery from "../../api/hooks/useQuery";
 import {Link, useParams} from "react-router-dom";
 import {CategoryApiResponse} from "../../api/types/categories";
-import {Box} from "@mui/material";
+import {Box, Grid} from "@mui/material";
+import TestPage from "../test-page/TestPage";
 
 const ForumPage = () =>{
     const apiToken = useRecoilValue(authTokenAtom); // test purpose
@@ -15,11 +16,24 @@ const ForumPage = () =>{
     //afisare in fct de isLoading
     const renderTopics = () =>
         (data?.topics??[]).map(topic => (
-                <Topic topic={topic} key={topic.topicId}/>))
+            <Grid item xs={13} sm={10} md={7} xl={7}
+                  sx={{my:0.2}}>
+                <Box width="100%">
+                    <Topic topic={topic} key={topic.topicId}/>
+                </Box>
+            </Grid>
+        ))
     return(
-        <Box display="flex" marginLeft="0.25rem" justifyContent="center">
-                {renderTopics()}
-        </Box>
+        <Grid
+            container={true}
+            justifyContent="center"
+            xs={20}
+            sm={15}
+            xl={14}
+            px={{xs:3, sm :10, xl: 10}}>
+            {renderTopics()}
+            <TestPage/>
+        </Grid>
     )
 }
 
