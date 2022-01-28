@@ -6,6 +6,7 @@ export async function deletePost(postId: number, token: string){
     try {
         const res = await deleteRequest(
             `/Post/${postId}`,
+            {},
             token,
         );
         return res.data;

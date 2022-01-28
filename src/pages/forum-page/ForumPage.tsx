@@ -8,6 +8,7 @@ import {Link, useParams} from "react-router-dom";
 import {CategoryApiResponse} from "../../api/types/categories";
 import {Box, Grid} from "@mui/material";
 import TestPage from "../test-page/TestPage";
+import CreateNewTopic from '../../components/topic/CreateNewTopic';
 
 const ForumPage = () =>{
     const apiToken = useRecoilValue(authTokenAtom); // test purpose
@@ -26,11 +27,12 @@ const ForumPage = () =>{
     return(
         <Grid
             container={true}
-            justifyContent="center"
+            direction="column"
             xs={20}
             sm={15}
             xl={14}
-            px={{xs:3, sm :10, xl: 10}}>
+            px={{xs:3, sm :10, md: 39,xl: 50}}>
+            {categoryId && <CreateNewTopic categId={parseInt(categoryId as string)}/>}
             {renderTopics()}
             <TestPage/>
         </Grid>

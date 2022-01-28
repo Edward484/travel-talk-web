@@ -3,7 +3,7 @@ import {deleteRequest, getRequest, patchRequest, postRequest} from "../../utils/
 export async function createTopic(title:string, desc:string, categId:number, token:string){
     const res = await postRequest(
         '/Topic',
-        {Title:title,
+        { Title:title,
                 Description:desc,
                 CategoryId:categId},
         token
@@ -21,6 +21,7 @@ export async function getTopicById(id:number,token:string){
 export async function updateTopicDescription(id:number, token:string){
     const res = await patchRequest(
         `/Topic/${id}`,
+        {},
         token
     )
     return res;
@@ -29,6 +30,7 @@ export async function updateTopicDescription(id:number, token:string){
 export async function deleteTopicById(id:number, token:string){
     const res = await deleteRequest(
         `/Topic/${id}`,
+        {},
         token
     )
 }

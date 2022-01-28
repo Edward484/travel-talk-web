@@ -4,6 +4,7 @@ import {Box, Grid, Typography} from '@mui/material';
 import colors from '../../lib/theme/colors';
 import { formatDate } from '../../lib/utils/string-utils';
 import FadeMenu from "./fadeMenuButton";
+import VoteButton from "./VoteButton";
 
 interface PostProps {
   post: PostModel;
@@ -27,9 +28,13 @@ const Post: React.FC<PostProps> = ({ post }) => {
                 <img style={{ width: '200px' }} src={post.imageUrl} />
               </Box>
             </Grid>
-          {/*    TODO: Add upvote button*/}
-          {/*    TODO: Add report button*/}
-          <FadeMenu/>
+            <Grid style={{display:'flex', alignItems: 'center'}}>
+                <Grid style={{display:'flex', flexDirection:'column', alignItems: 'flex-start'}}>
+                    <VoteButton type={1}/>
+                    <VoteButton type={2}/>
+                </Grid>
+                <FadeMenu postId={post.postId} topicId={-1}/>
+            </Grid>
         </Grid>
     </Box>
   );

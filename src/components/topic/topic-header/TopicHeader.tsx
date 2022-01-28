@@ -22,7 +22,6 @@ const TopicHeader: React.FC<TopicHeaderProps> = ({ topic }) => {
       <Typography variant="h3" color={colors.textInverted} fontWeight="500">
         {topic.description}
       </Typography>
-      {/*  TODO: Add delete button*/}
     </Box>
   );
 };

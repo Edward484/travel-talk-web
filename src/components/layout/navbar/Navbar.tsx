@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CategoryApiResponse } from '../../../api/types/categories';
 import { getAllCategories } from '../../../api/requests/categories/categories-api-requests';
-import { Box, Button, Typography } from '@mui/material';
+import {Box, Button, Grid, Popover, Typography} from '@mui/material';
 import { useNavigate } from 'react-router';
 import colors from '../../../lib/theme/colors';
 import Logo from '../logo/Logo';
@@ -10,6 +10,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentUserAtom } from '../../../global/atoms/AuthAtoms';
 import { Link } from 'react-router-dom';
 import { allCategoriesAtom } from '../../../global/atoms/CategoryAtoms';
+import { TabScrollButton } from '@mui/material';
+import Notifications from "../../notification/Notifications";
+import NotificationsList from "../../notification/NotificationsList";
+
 
 const Navbar = () => {
   const [categories, setCategories] = useRecoilState(allCategoriesAtom);
@@ -26,11 +30,13 @@ const Navbar = () => {
   const renderCategories = () =>
     categories.map(category => (
       <Button variant="text" key={category.categoryId}>
-        <Link to={`/${category.categoryId}`}>
+        <Link to={`/${category.categoryId}`} style={{ textDecoration: 'none' }}>
           <Typography variant="h5">{category.name}</Typography>
         </Link>
       </Button>
     ));
+
+  const notificationPopover = () => {}
 
   const goToAuthPage = () => navigate('/auth');
 
@@ -48,14 +54,20 @@ const Navbar = () => {
       <Link to={'/'}>
         <Logo />
       </Link>
+
       <Box display="flex" marginLeft="0.25rem">
         {renderCategories()}
       </Box>
-      <Box marginLeft="auto">
+      <Grid
+        style={{display:'flex'}}
+        marginLeft="auto" >
         {!isLoggedIn && (
           <Button onClick={goToAuthPage} variant="text">
             <Typography variant="button">Sign In</Typography>
           </Button>
+        )}
+        {isLoggedIn && (
+            <Notifications/>
         )}
         {isLoggedIn && (
           <Button onClick={() => navigate('/settings/profile')} variant="text">
@@ -64,7 +76,7 @@ const Navbar = () => {
             </Typography>
           </Button>
         )}
-      </Box>
+      </Grid>
     </Box>
   );
 };
