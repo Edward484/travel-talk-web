@@ -27,6 +27,18 @@ export async function upVotePost(postId: number, token: string){
     }
 }
 
+export async function downVotePost(postId: number, token: string){
+    try {
+        const res = await patchRequest(
+            `/Post/DownVote/${postId}`,
+            token,
+        );
+        return res.data;
+    }catch (e){
+        return undefined;
+    }
+}
+
 export async function updatePostContent(postId: number, content:string, token: string){
     try {
         const res = await patchRequest(

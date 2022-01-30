@@ -18,10 +18,10 @@ export async function getTopicById(id:number,token:string){
     return res;
 }
 
-export async function updateTopicDescription(id:number, token:string){
+export async function updateTopicDescription(id:number,description:string, token:string){
     const res = await patchRequest(
         `/Topic/${id}`,
-        {},
+        {description:description},
         token
     )
     return res;

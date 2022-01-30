@@ -12,7 +12,7 @@ export type Post = {
 };
 export type PostType = {
     postId: number;
-    authorName: string;
+    AuthorName: string;
     authorId: number;
     createdAt: Date;
     content: string;

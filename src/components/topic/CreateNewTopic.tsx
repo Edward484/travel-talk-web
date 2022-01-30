@@ -11,6 +11,7 @@ import {createPost} from "../../api/requests/post/post-api-request";
 import {useRecoilValue} from "recoil";
 import {authTokenAtom} from "../../global/atoms/AuthAtoms";
 import {createTopic} from "../../api/requests/topic/topic-api-request";
+import AddIcon from '@mui/icons-material/Add';
 
 const CreateNewTopic : React.FC<{categId: number}> = (props) => {
     const apiToken = useRecoilValue(authTokenAtom);
@@ -30,7 +31,6 @@ const CreateNewTopic : React.FC<{categId: number}> = (props) => {
     const handleClickCreate = async () => {
         if(apiToken) {
             const res = await createTopic(topicName,topicDescription,props.categId,apiToken.token);
-            console.log(res);
         }
         setTopicName('');
         setTopicDescription('');
@@ -48,7 +48,7 @@ const CreateNewTopic : React.FC<{categId: number}> = (props) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddIcon/>}>
         Create new Topic
             </Button>
         <Dialog open={open} onClose={handleClose}>

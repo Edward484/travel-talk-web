@@ -7,7 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {deletePost} from "../../api/requests/post/post-api-request";
 import {useRecoilValue} from "recoil";
 import {authTokenAtom} from "../../global/atoms/AuthAtoms";
-import {deleteTopicById} from "../../api/requests/topic/topic-api-request";
+import {deleteTopicById, updateTopicDescription} from "../../api/requests/topic/topic-api-request";
  const FadeMenu: React.FC<{postId:number | undefined, topicId: number|undefined}> = (props) => {
     const apiToken = useRecoilValue(authTokenAtom);
 
@@ -18,18 +18,19 @@ import {deleteTopicById} from "../../api/requests/topic/topic-api-request";
     };
     const handleClose = async (event: React.MouseEvent<HTMLElement>, param: number) => {
         console.log(param)
+        if (param == 1) {
+            const res =  await updateTopicDescription(props.topicId!,'New desc', apiToken!.token)
+        }
         if (param == 2) {
             const res = await deletePost(props.postId as number , apiToken!.token );
             //Todo: now access is unauthorized
-            console.log(res);
         }
         if (param == 4) {
             const res = await deleteTopicById(props.topicId as number , apiToken!.token );
             //Todo: now access is unauthorized
-            console.log(res);
         }
 
-        //setTimeout(() => {window.location.reload(); },1000)
+        setTimeout(() => {window.location.reload(); },1000)
         setAnchorEl(null);
     };
     const handleCloseMouse = () => {
@@ -58,7 +59,7 @@ import {deleteTopicById} from "../../api/requests/topic/topic-api-request";
                 onClose={handleCloseMouse}
                 TransitionComponent={Fade}
                 >
-                <MenuItem onClick={event => handleClose(event,1)}>Profile Data</MenuItem>
+                <MenuItem onClick={event => handleClose(event,1)}>Change Content</MenuItem>
                 {props.postId!==-1 &&
                     <MenuItem onClick={event => handleClose(event, 2)}>Delete Post</MenuItem>}
                 {props.topicId!==-1 &&

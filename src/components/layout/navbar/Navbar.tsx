@@ -24,13 +24,16 @@ const Navbar = () => {
   //Get all the categories on page load
   useEffect(() => {
     getAllCategories().then(setCategories);
-    console.log("Categ:",categories )
   }, []);
+
+
 
   const renderCategories = () =>
     categories.map(category => (
       <Button variant="text" key={category.categoryId}>
-        <Link to={`/${category.categoryId}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/${category.categoryId}`}
+              style={{ textDecoration: 'none' }}
+        >
           <Typography variant="h5">{category.name}</Typography>
         </Link>
       </Button>
