@@ -16,7 +16,6 @@ export type User = {
 
   posts: number[];
   notifications: Notification[];
-  newNotifications: number;
   roles: Roles[];
   // An array of the ids of the upvoted posts
   upVotes: number[];

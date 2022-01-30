@@ -1,72 +1,56 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import {Grid} from "@mui/material";
+import { Grid, ListItemButton, ListItemText } from '@mui/material';
+import { Notification, NotificationType } from '../../models/notification';
 
-function refreshMessages(): MessageExample[] {
-    const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max));
-
-    return Array.from(new Array(3)).map(
-        () => messageExamples[getRandomInt(messageExamples.length)],
-    );
+interface NotificationListProps {
+  notifications: Notification[];
 }
 
-export default function NotificationsList() {
-    const [value, setValue] = React.useState(0);
-    const ref = React.useRef<HTMLDivElement>(null);
-    const [messages, setMessages] = React.useState(() => refreshMessages());
+const NotificationsList: React.FC<NotificationListProps> = ({
+  notifications,
+}) => {
+  const [value, setValue] = React.useState(0);
 
-    React.useEffect(() => {
-        (ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0;
-        setMessages(refreshMessages());
-    }, [value, setMessages]);
+  const getNotificationText = (notification: Notification) => {
+    switch (notification.type) {
+      case NotificationType.COMMENT: {
+        return `Someone commented on your topic: ${notification.topic.title}`;
+      }
+      case NotificationType.DELETE: {
+        return `Your post got deleted: ${(
+          notification.post?.content ?? ''
+        ).substring(0, 15)}${
+          (notification.post?.content ?? '').length > 15 ? '...' : ''
+        }`;
+      }
+      case NotificationType.UPVOTE: {
+        return `You got an upvote to your post: ${(
+          notification.post?.content ?? ''
+        ).substring(0, 15)}${
+          (notification.post?.content ?? '').length > 15 ? '...' : ''
+        }`;
+      }
+    }
+  };
 
-    return (
-        <Grid  ref={ref}>
-                <List>
-                    {messages.map(({ primary, secondary, person }, index) => (
-                        <ListItem button key={index + person}>
-                            <ListItemText primary={primary} secondary={secondary} />
-                        </ListItem>
-                ))}
-                </List>
-            <Paper  >
-                <BottomNavigation
-                    showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }} >
-                <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-                <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
-                </BottomNavigation>
-            </Paper>
+  return (
+    <Grid>
+      <List>
+        {notifications.map((notification, index) => (
+          <ListItem>
+            <ListItemButton
+              component="a"
+              href={`/${notification.topic.categoryId}/${notification.topic.topicId}`}
+            >
+              <ListItemText primary={getNotificationText(notification)} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </Grid>
-);
-}
+  );
+};
 
-interface MessageExample {
-    primary: string;
-    secondary: string;
-    person: string;
-}
-
-const messageExamples: readonly MessageExample[] = [
-    {
-        primary: 'Brunch this week?',
-        secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
-        person: '/static/images/avatar/5.jpg',
-    },
-
-];
+export default NotificationsList;

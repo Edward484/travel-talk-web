@@ -57,12 +57,6 @@ export default function useLogin() {
   const fetchCurrentUser = async (token: string) => {
     const profile = await getCurrentUser(token);
     setCurrentUser(profile);
-
-    // Periodically refresh the profile to check for notifications
-    currentRefreshTimeout = setInterval(async () => {
-      const profile = await getCurrentUser(token);
-      setCurrentUser(profile);
-    }, 1000 * 60);
   };
 
   const signIn = async () => {

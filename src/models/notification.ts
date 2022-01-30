@@ -1,5 +1,6 @@
 import { Topic } from './topic';
 import { Post } from './post';
+import { CategoryTopicApiResponse } from '../api/types/topic';
 
 export enum NotificationType {
   COMMENT = 0,
@@ -8,9 +9,7 @@ export enum NotificationType {
 }
 
 export type Notification = {
-  id: number;
   type: NotificationType;
-  topic: Topic;
+  topic: CategoryTopicApiResponse;
   post?: Post;
-  extra?: string;
 };
