@@ -22,19 +22,19 @@ const Topic: React.FC<TopicProps> = ({ topic }) => {
       >
           <Grid style={{display :"flex" ,justifyContent:'space-between' }}>
               <Link to={`/Topic/${topic.categoryId}/${topic.topicId}`}>
-                <Grid pr={{xs:'15rem', md:'34rem', xl:'40rem'}}>
-                <Box marginBottom="0.25rem">
+                <Grid pr={{xs:'15rem', md:'34rem', xl:'40rem'}} style={{width: '100%'}} >
+                <Box marginBottom="0.25rem" width="160px">
                   <Typography variant="h3" fontSize="18px" fontWeight="500">
                     {topic.title}
                   </Typography>
                 </Box>
-                <Box marginBottom="0.25rem">
+                <Box marginBottom="0.25rem" width="160px">
                   <Typography variant="body1" fontSize="1rem">
                     {topic.description}
                   </Typography>
                 </Box>
                 {topic.authorUsername && (
-                  <Box>
+                  <Box width="160px">
                     <Typography
                       variant="body2"
                       fontSize="0.75rem"

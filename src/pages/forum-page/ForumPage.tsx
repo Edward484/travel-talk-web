@@ -15,6 +15,8 @@ import CategoryOptionsButton from "../../components/Category/CategoryOptionsButt
 
 const ForumPage = () =>{
     const apiToken = useRecoilValue(authTokenAtom);
+    const profile = useRecoilValue(currentUserAtom);
+
     const {categoryId} = useParams();
     const {data, isLoading} = useQuery<CategoryApiResponse>(`/Category/${categoryId}`, ["category", categoryId])
     //afisare in fct de isLoading
@@ -29,7 +31,7 @@ const ForumPage = () =>{
             </Grid>
         ))
 
-
+    console.log(profile?.roles)
     return(
         <Grid
             container={true}
@@ -38,9 +40,8 @@ const ForumPage = () =>{
             sm={15}
             xl={14}
             px={{xs:3, sm :10, md: 39,xl: 50}}>
-            <CategoryOptionsButton categId={parseInt(categoryId as string)}/>
+            {categoryId && profile?.roles.find(role => role === Roles.Admin) && <CategoryOptionsButton categId={parseInt(categoryId as string)}/>}
              {renderTopics()}
-            <TestPage/>
         </Grid>
     )
 }

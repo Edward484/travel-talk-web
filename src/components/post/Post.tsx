@@ -11,13 +11,14 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => {
+    console.log(post)
   return (
     <Box paddingX="1rem" paddingY="0.5rem" bgcolor={colors.paper}>
         <Grid style={{display :"flex" ,justifyContent:'space-between' }}>
             <Grid>
               <Box marginBottom="0.25rem">
                 <Typography variant="body2" color={colors.textDisabled}>
-                  @{post.AuthorName} at {formatDate(new Date(post.createdAt*1000))} || UpVotes: {post.upVotes}
+                  @{post.authorName} at {formatDate(new Date(post.createdAt*1000))} || UpVotes: {post.upvoteCount}
                 </Typography>
 
               </Box>

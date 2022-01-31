@@ -4,9 +4,11 @@ import colors from '../../lib/theme/colors';
 import Navbar from './navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import useRememberMe from '../../lib/hooks/auth/useRememberMe';
+import {useNavigate} from "react-router";
 
 const Layout: React.FC = () => {
   useRememberMe();
+
   return (
     <Box
       width="100vw"

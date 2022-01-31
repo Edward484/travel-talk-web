@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';
+import {Route, Routes, useNavigate} from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import AuthPage from '../pages/auth-page/AuthPage';
 import Layout from '../components/layout/Layout';
@@ -15,6 +15,7 @@ import TopicPage from '../pages/topic-page/TopicPage';
 
 const Router = () => {
   const isLoggedIn = useIsLoggedIn();
+
   return (
     <BrowserRouter>
       <Routes>

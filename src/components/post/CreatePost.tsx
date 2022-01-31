@@ -56,16 +56,20 @@ const CreatePost: React.FC<{topicId:string | undefined}> = (props) => {
                     color="secondary"
                     error={postError}/>
                 <Box style={{display:'flex', justifyContent:'space-between' }}>
-                    <Button
-                        variant="contained"
-                        component="label" >
-                        Upload File
-                        <input
-                            onChange={handleChange}
-                            type="file"
-                            hidden
-                        />
-                    </Button>
+                    <TextField
+                        placeholder='Put the link of the photo'>
+
+                    </TextField>
+                    {/*<Button*/}
+                    {/*    variant="contained"*/}
+                    {/*    component="label" >*/}
+                    {/*    Upload File*/}
+                    {/*    <input*/}
+                    {/*        onChange={handleChange}*/}
+                    {/*        type="file"*/}
+                    {/*        hidden*/}
+                    {/*    />*/}
+                    {/*</Button>*/}
                     <Button
                         type="submit"
                         variant="contained"

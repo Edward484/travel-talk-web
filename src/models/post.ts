@@ -2,23 +2,23 @@ import { Topic } from './topic';
 
 export type Post = {
     postId: number;
-    AuthorName: string;
+    authorName: string;
     AuthorId: number;
     createdAt: number;
     content: string;
     topic: Topic;
     imageUrl?: string;
-    upVotes: number;
+    upvoteCount: number;
 };
 export type PostType = {
     postId: number;
-    AuthorName: string;
+    authorName: string;
     authorId: number;
     createdAt: Date;
     content: string;
     topicId:number
     imageUrl?: string;
-    upVotes: number;
+    upvoteCount: number;
 };
 
 export type PostList = {

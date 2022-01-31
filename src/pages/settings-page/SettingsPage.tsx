@@ -15,6 +15,7 @@ import { deletePost} from "../../api/requests/post/post-api-request";
 const SettingsPage = () => {
   const apiToken = useRecoilValue(authTokenAtom); // test purpose
   const profile = useRecoilValue(currentUserAtom);
+  console.log("Profile",profile)
   const navigate = useNavigate();
   const { signOut } = useLogin();
 
