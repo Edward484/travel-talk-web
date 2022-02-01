@@ -8,6 +8,7 @@ import {deletePost} from "../../api/requests/post/post-api-request";
 import {useRecoilValue} from "recoil";
 import {authTokenAtom} from "../../global/atoms/AuthAtoms";
 import {deleteTopicById, updateTopicDescription} from "../../api/requests/topic/topic-api-request";
+import {postUserNotification} from "../../api/requests/notification/notification-api-request";
  const FadeMenu: React.FC<{postId:number | undefined, topicId: number|undefined}> = (props) => {
     const apiToken = useRecoilValue(authTokenAtom);
 
@@ -20,18 +21,27 @@ import {deleteTopicById, updateTopicDescription} from "../../api/requests/topic/
         console.log(param)
         if (param == 1) {
             const res =  await updateTopicDescription(props.topicId!,'New desc', apiToken!.token)
+
+            setTimeout(() => {window.location.reload(); },1000)
+            setAnchorEl(null);
         }
         if (param == 2) {
             const res = await deletePost(props.postId as number , apiToken!.token );
-            //Todo: now access is unauthorized
+
+            setTimeout(() => {window.location.reload(); },1000)
+            setAnchorEl(null);
         }
         if (param == 4) {
             const res = await deleteTopicById(props.topicId as number , apiToken!.token );
-            //Todo: now access is unauthorized
-        }
 
-        setTimeout(() => {window.location.reload(); },1000)
-        setAnchorEl(null);
+            setTimeout(() => {window.location.reload(); },1000)
+            setAnchorEl(null);
+        }
+        if (param == 3){
+            const res = await postUserNotification(props.postId as number,apiToken!.token)
+        }
+        handleCloseMouse();
+
     };
     const handleCloseMouse = () => {
         setAnchorEl(null);

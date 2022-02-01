@@ -14,7 +14,10 @@ export async function getUserNotification(token:string) {
 export async function postUserNotification(postId:number,token:string) {
     try{
         const res = await postRequest(
-            `/Notification/${postId}`, token);
+            `Notification/${postId}`,
+            {},
+            token);
+        console.log(res)
         return res;
     }
     catch (e){

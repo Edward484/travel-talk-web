@@ -34,7 +34,11 @@ const Navbar = () => {
         <Link to={`/${category.categoryId}`}
               style={{ textDecoration: 'none' }}
         >
-          <Typography variant="h5">{category.name}</Typography>
+          <Typography
+              variant="h5"
+              sx={{color:'primary.main'}}
+          >
+            {category.name}</Typography>
         </Link>
       </Button>
     ));

@@ -11,6 +11,7 @@ import {createPost} from "../../api/requests/post/post-api-request";
 import {useRecoilValue} from "recoil";
 import {authTokenAtom} from "../../global/atoms/AuthAtoms";
 import {changeCategoryName} from "../../api/requests/categories/categories-api-requests";
+import colors from "../../lib/theme/colors";
 
 const ChangeCategoryName : React.FC<{categId: number}> = (props) => {
     const apiToken = useRecoilValue(authTokenAtom);
@@ -43,7 +44,8 @@ const ChangeCategoryName : React.FC<{categId: number}> = (props) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen} color='info'>
+            <Button variant="text" onClick={handleClickOpen}
+                    sx={{color : 'primary.dark' ,  ':hover': { bgcolor: colors.primary, cursor: 'pointer' }}}>
                 Change category name
             </Button>
             <Dialog open={open} onClose={handleClose}>

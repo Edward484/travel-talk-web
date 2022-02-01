@@ -48,7 +48,8 @@ const CreateNewTopic : React.FC<{categId: number}> = (props) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddIcon/>}>
+            <Button variant="contained" onClick={handleClickOpen} startIcon={<AddIcon/>}
+                    sx={{width:"100%"}}>
         Create new Topic
             </Button>
         <Dialog open={open} onClose={handleClose}>

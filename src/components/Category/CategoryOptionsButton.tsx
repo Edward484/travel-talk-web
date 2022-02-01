@@ -35,7 +35,7 @@ const CategoryOptionsButton: React.FC<{categId: number}> = (props) =>{
                 }}
                 transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'center',
+                    horizontal: 'right',
                 }}
             >
                 <CategoryOptions categId={props.categId}/>

@@ -7,6 +7,7 @@ import {useRecoilValue} from "recoil";
 import {authTokenAtom, currentUserAtom} from "../../global/atoms/AuthAtoms";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {deleteCategoryById} from "../../api/requests/categories/categories-api-requests";
+import colors from "../../lib/theme/colors";
 
 const CategoryOptions: React.FC<{categId: number}>  = (props) => {
     const apiToken = useRecoilValue(authTokenAtom)
@@ -24,6 +25,7 @@ const CategoryOptions: React.FC<{categId: number}>  = (props) => {
             {props.categId && profile?.roles.find(role => role === Roles.Admin) && <CreateNewTopic categId={props.categId }/>}
             {props.categId && profile?.roles.find(role => role === Roles.Admin) && <ChangeCategoryName categId={props.categId}/>}
             <Button
+                sx={{color : 'primary.dark' ,  ':hover': { bgcolor: colors.primary, cursor: 'pointer' }, width:"100%"}}
             startIcon={<DeleteIcon/>}
             onClick={deleteCategory}>
                 Delete Category

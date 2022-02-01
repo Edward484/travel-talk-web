@@ -108,7 +108,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         </Button>
         <Button variant="text" onClick={toggleForm}>
           <Typography variant="h5" fontSize="1rem">
-            Sign Ip
+            Sign In
           </Typography>
         </Button>
       </Box>

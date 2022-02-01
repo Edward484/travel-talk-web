@@ -9,6 +9,7 @@ const CreatePost: React.FC<{topicId:string | undefined}> = (props) => {
     const apiToken = useRecoilValue(authTokenAtom);
 
     const [post, setPost] = useState<string>('')
+    const [urlImg, setUrlImg] = useState('')
     const [postError, setPostError] = useState<boolean>(false)
     const [file, setFile] = useState<string>('');
     const types = ['image/png', 'image/jpeg'];
@@ -20,7 +21,7 @@ const CreatePost: React.FC<{topicId:string | undefined}> = (props) => {
             console.log(file);
             //call api
             if (apiToken) {
-                const res = await createPost(parseInt(props.topicId as string), post, "", apiToken.token);
+                const res = await createPost(parseInt(props.topicId as string), post, urlImg, apiToken.token);
             }
             setPost('');
             setFile('');
@@ -57,7 +58,8 @@ const CreatePost: React.FC<{topicId:string | undefined}> = (props) => {
                     error={postError}/>
                 <Box style={{display:'flex', justifyContent:'space-between' }}>
                     <TextField
-                        placeholder='Put the link of the photo'>
+                        placeholder='Put the link of the photo'
+                        onChange={(e) => {setUrlImg(e.target.value)}}>
 
                     </TextField>
                     {/*<Button*/}

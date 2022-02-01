@@ -42,7 +42,7 @@ const NotificationsList: React.FC<NotificationListProps> = ({
           <ListItem>
             <ListItemButton
               component="a"
-              href={`/${notification.topic.categoryId}/${notification.topic.topicId}`}
+              href={`/Topic/${notification.topic.categoryId}/${notification.topic.topicId}`}
             >
               <ListItemText primary={getNotificationText(notification)} />
             </ListItemButton>
